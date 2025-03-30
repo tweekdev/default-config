@@ -1,38 +1,102 @@
--- Set leader key
+local wk = require("which-key")
+
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+--
+-- Move to window using the <ctrl> hjkl keys
 vim.g.mapleader = " "
 
-local keymap = vim.keymap -- for conciseness
-
----------------------
--- General Keymaps -------------------
-keymap.set("n", "<leader>rn", ":IncRename ")
--- use jk to exit insert mode
-keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
-
 -- This is going to get me cancelled
-keymap.set("i", "<C-c>", "<Esc>")
-keymap.set("n", "<leader>-", vim.cmd.sp)
-keymap.set("n", "<leader>|", vim.cmd.vs)
--- telescope
+vim.keymap.set("i", "<C-c>", "<Esc>")
+
+vim.opt.swapfile = false
+
+-- Navigate vim panes better
+vim.keymap.set('n', '<c-k>', ':wincmd k<CR>')
+vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
+vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
+vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
+
+vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
-keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
-keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
-keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
-keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
+-- split window
+vim.keymap.set("n", "<leader>|", vim.cmd.vs)
+vim.keymap.set("n", "<leader>-", vim.cmd.sp)
 
-keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+-- Telescope
+vim.keymap.set("n", "<C-p>", builtin.find_files, {})
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+-- Neo-tree
+--vim.keymap.set("n", "<C-b>", "<cmd>Neotree filesystem reveal left<CR>", {})
+vim.keymap.set("n", "<C-b>", "<Cmd>Neotree toggle<CR>")
 
-keymap.set("n", "<C-p>", builtin.git_files, {})
-keymap.set("n", "<leader>ps", function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
-end)
+-- Which-key labels and keymaps
+wk.add({
+	-- No groups
+	{ "<leader>a", hidden = true },
+	{ "<leader>K", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "LSP hover" },
+	{ "<leader>w", "<cmd>wall!<CR>", desc = "Save all files" },
+	{ "<leader>Q", "<cmd>wqall!<CR>", desc = "Save and Quit" },
+	{ "<leader>b", "<cmd>BufferLinePick<CR>", desc = "Buffer switcher" },
+
+	-- Code
+	{ "<leader>c", group = "+code" },
+	{ "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code action" },
+	{ "<leader>cf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", desc = "Format" },
+	{ "<leader>cr", ":IncRename ", desc = "Rename" },
+	{ "c", group = "+code" },
+	{ "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code action" },
+	{ "cf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", desc = "Format" },
+	{ "cr", ":IncRename ", desc = "Rename" },
+
+	-- Debugger
+	{ "<leader>d", group = "+debugger" },
+	{ "<leader>dt", "<cmd>DapToggleBreakpoint<CR>", desc = "Toggle Breakpoint" },
+	{ "<leader>dc", "<cmd>DapContinue<CR>", desc = "Continue" },
+	{ "<leader>dx", "<cmd>DapTerminate<CR>", desc = "Terminate" },
+	{ "<leader>do", "<cmd>DapStepOver<CR>", desc = "Step Over" },
+
+	-- Find
+	{ "<leader>f", group = "+find" },
+	{ "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", desc = "Find Files" },
+	{ "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>", desc = "Live Grep" },
+	{ "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "Buffers" },
+	{ "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>", desc = "Help Tags" },
+
+	-- Goto
+	{ "<leader>g", group = "+goto" },
+	{ "<leader>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code Action" },
+	{ "<leader>gh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover" },
+	{ "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Definition" },
+	{ "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Declaration" },
+	{ "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Implementation" },
+	{ "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "References" },
+	{ "g", group = "+goto" },
+	{ "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code Action" },
+	{ "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover" },
+	{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Definition" },
+	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Declaration" },
+	{ "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Implementation" },
+	{ "gr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "References" },
+
+	-- LSP
+	{ "<leader>l", group = "+lsp" },
+	{ "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", desc = "Format" },
+	{ "<leader>lr", ":IncRename ", desc = "Rename" },
+
+	-- Trouble
+	{ "<leader>x", group = "+trouble" },
+	{ "<leader>xx", "<cmd>TroubleToggle<CR>", desc = "Toggle" },
+	{ "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Workspace Diagnostics" },
+	{ "<leader>xd", "<cmd>TroubleToggle document_diagnostics<CR>", desc = "Document Diagnostics" },
+	{ "<leader>xq", "<cmd>TroubleToggle quickfix<CR>", desc = "Quickfix" },
+	{ "<leader>xl", "<cmd>TroubleToggle loclist<CR>", desc = "Loclist" },
+})

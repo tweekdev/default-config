@@ -1,3 +1,27 @@
+vim.g.lazyvim_eslint_auto_format = true
+vim.g.lazyvim_prettier_needs_config = false
+
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
+vim.opt.smartindent = true
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+
+vim.opt.hlsearch = false
+vim.opt.scrolloff = 8
+vim.opt.isfname:append("@-@")
+
+vim.opt.updatetime = 50
+
+vim.opt.colorcolumn = "80"
+
+vim.wo.number = true
 local opt = vim.opt -- for conciseness
 
 vim.opt.clipboard = "unnamedplus" -- use system keyboard for yank
@@ -5,14 +29,6 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 vim.opt.nu = true -- set line numbers -- set line numbers
 vim.opt.relativenumber = true -- use relative line numbers
-
--- set tab size to 2 spaces
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-opt.autoindent = true -- copy indent from current line when starting new one
 
 vim.opt.wrap = true
 
