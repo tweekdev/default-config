@@ -17,7 +17,9 @@ return {
 		"neovim/nvim-lspconfig",
 		lazy = false,
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities.textDocument.completion =
+				require("cmp_nvim_lsp").default_capabilities().textDocument.completion
 
 			local lspconfig = require("lspconfig")
 			lspconfig.ts_ls.setup({

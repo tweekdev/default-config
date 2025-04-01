@@ -1,6 +1,8 @@
 return {
 	{
 		"hrsh7th/cmp-nvim-lsp",
+		commit = "99290b3",
+		-- last release is way too old
 	},
 	{
 		"L3MON4D3/LuaSnip",
@@ -11,6 +13,8 @@ return {
 	},
 	{
 		"hrsh7th/nvim-cmp",
+		commit = "1e1900b",
+		version = false,
 		config = function()
 			local cmp = require("cmp")
 			require("luasnip.loaders.from_vscode").lazy_load()
