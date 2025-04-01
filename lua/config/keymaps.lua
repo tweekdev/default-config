@@ -10,15 +10,15 @@ vim.g.mapleader = " "
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
-vim.opt.swapfile = false
+vim.keymap.set("n", "<leader>rn", ":IncRename ")
 
 -- Navigate vim panes better
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>')
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
+vim.keymap.set("n", "<c-k>", ":wincmd k<CR>")
+vim.keymap.set("n", "<c-j>", ":wincmd j<CR>")
+vim.keymap.set("n", "<c-h>", ":wincmd h<CR>")
+vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
 
-vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>")
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
@@ -75,10 +75,10 @@ wk.add({
 	{ "<leader>g", group = "+goto" },
 	{ "<leader>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code Action" },
 	{ "<leader>gh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover" },
-	{ "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Definition" },
+	{ "<leader>gd", "<cmd>Telescope lsp_definitions<CR>", desc = "Definition" },
 	{ "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Declaration" },
 	{ "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Implementation" },
-	{ "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "References" },
+	{ "<leader>gr", "<cmd>Telescope lsp_references<CR>", desc = "References" },
 	{ "g", group = "+goto" },
 	{ "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code Action" },
 	{ "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover" },
