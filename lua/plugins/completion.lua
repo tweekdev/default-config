@@ -13,7 +13,6 @@ return {
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		commit = "1e1900b",
 		version = false,
 		config = function()
 			local cmp = require("cmp")

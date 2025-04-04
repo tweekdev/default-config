@@ -25,18 +25,18 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find f
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Telescope diagnostics" })
+vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "Telescope lsp references" })
+vim.keymap.set("n", "C-g", builtin.git_files, { desc = "Telescope git files" })
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- split window
 vim.keymap.set("n", "<leader>|", vim.cmd.vs)
 vim.keymap.set("n", "<leader>-", vim.cmd.sp)
 
--- Telescope
-vim.keymap.set("n", "<C-p>", builtin.find_files, {})
-
 -- Neo-tree
 --vim.keymap.set("n", "<C-b>", "<cmd>Neotree filesystem reveal left<CR>", {})
-vim.keymap.set("n", "<C-b>", "<Cmd>Neotree toggle<CR>")
+vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
 
 -- Which-key labels and keymaps
 wk.add({
@@ -70,6 +70,14 @@ wk.add({
 	{ "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>", desc = "Live Grep" },
 	{ "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", desc = "Buffers" },
 	{ "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>", desc = "Help Tags" },
+	{ "<leader>fr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", desc = "References" },
+	{ "<leader>fd", "<cmd>lua require('telescope.builtin').diagnostics()<CR>", desc = "Diagnostics" },
+	{ "C-g", "<cmd>lua require('telescope.builtin').git_files()<CR>", desc = "Git Files" },
+	-- Git
+	{ "<leader>g", group = "+git" },
+	{ "<leader>gs", "<cmd>lua require('telescope.builtin').git_status()<CR>", desc = "Git Status" },
+	{ "<leader>gc", "<cmd>lua require('telescope.builtin').git_commits()<CR>", desc = "Git Commits" },
+	{ "<leader>gb", "<cmd>lua require('telescope.builtin').git_branches()<CR>", desc = "Git Branches" },
 
 	-- Goto
 	{ "<leader>g", group = "+goto" },
