@@ -73,11 +73,14 @@ return {
 			vim.keymap.set("n", "<leader><leader>", builtin.oldfiles, {})
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
-
+			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
 			vim.keymap.set("n", "<leader>fG", function()
 				builtin.grep_string({ search = vim.fn.input("Grep > ") })
 			end)
 
+			vim.keymap.set("n", "<leader>fB", builtin.git_status, {})
+			vim.keymap.set("n", "<leader>fc", builtin.git_commits, {})
+			vim.keymap.set("n", "<leader>fC", builtin.git_bcommits, {})
 			vim.keymap.set("n", "<leader>ff", function()
 				builtin.find_files({
 					no_ignore = true,
