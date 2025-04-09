@@ -58,6 +58,10 @@ return {
 				main = {
 					base = "#191919",
 				},
+				moon = {
+					base = "#18191a",
+					overlay = "#363738",
+				},
 				-- moon = {
 				--     base = '#18191a',
 				--     overlay = '#363738',
