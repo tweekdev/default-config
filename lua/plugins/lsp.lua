@@ -44,7 +44,7 @@ return {
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			-- vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definition<CR>", opts) -- show lsp definitions
-
+			vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", opts)
 			vim.keymap.set("n", "<leader>gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 			-- vim.keymap.set("n", "<leader>gR", vim.lsp.buf.references, {})
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})

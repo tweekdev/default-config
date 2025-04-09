@@ -39,13 +39,23 @@ return {
 					},
 				},
 				pickers = {
+					sorters = {
+						generic_fuzzy_sorter = {
+							override_generic_sorter = true,
+							override_file_sorter = true,
+						},
+					},
 					find_files = {
+						theme = "ivy",
 						find_command = { "rg", "--files", "--iglob", "!.git", "--hidden" },
+						hidden = true,
 					},
 					grep_string = {
+						theme = "ivy",
 						additional_args = { "--hidden" },
 					},
 					live_grep = {
+						theme = "ivy",
 						additional_args = { "--hidden" },
 					},
 				},
@@ -76,6 +86,10 @@ return {
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
 			vim.keymap.set("n", "<leader>fG", function()
 				builtin.grep_string({ search = vim.fn.input("Grep > ") })
+			end)
+
+			vim.keymap.set("n", "<leader>fn", function()
+				builtin.find_files({ cwd = "~/.config/nvim" })
 			end)
 
 			vim.keymap.set("n", "<leader>fB", builtin.git_status, {})

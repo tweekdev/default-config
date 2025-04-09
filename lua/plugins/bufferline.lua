@@ -2,7 +2,7 @@
 return {
 	"akinsho/bufferline.nvim",
 	version = "*",
-	dependencies = { "nvim-tree/nvim-web-devicons", "navarasu/onedark.nvim" },
+	dependencies = { "nvim-tree/nvim-web-devicons", "rose-pine/neovim" },
 	opts = {
 		-- style_preset = bufferline.style_preset.minimal,
 		highlights = {
@@ -18,7 +18,7 @@ return {
 			offsets = {
 				{
 					filetype = "neo-tree",
-					-- text = "Nvim Tree",
+					--text = "Nvim Tree",
 					separator = false,
 					text_align = "left",
 				},
@@ -34,4 +34,9 @@ return {
 			end,
 		},
 	},
+	event = "ColorScheme",
+	config = function()
+		local highlights = require("rose-pine.plugins.bufferline")
+		require("bufferline").setup({ highlights = highlights })
+	end,
 }
