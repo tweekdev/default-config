@@ -55,11 +55,9 @@ wk.add({
 	-- Code
 	{ "<leader>c", group = "+code" },
 	{ "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code action" },
-	{ "<leader>cf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", desc = "Format" },
 	{ "<leader>cr", ":IncRename ", desc = "Rename" },
 	{ "c", group = "+code" },
 	{ "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code action" },
-	{ "cf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", desc = "Format" },
 	{ "cr", ":IncRename ", desc = "Rename" },
 
 	-- Debugger
@@ -102,7 +100,6 @@ wk.add({
 
 	-- LSP
 	{ "<leader>l", group = "+lsp" },
-	{ "<leader>lf", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", desc = "Format" },
 	{ "<leader>lr", ":IncRename ", desc = "Rename" },
 
 	-- Trouble

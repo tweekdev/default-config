@@ -1,6 +1,7 @@
-vim.g.lazyvim_eslint_auto_format = true
+--vim.g.lazyvim_eslint_auto_format = true
 vim.g.lazyvim_prettier_needs_config = false
 
+--vim.o.winborder = "solid"
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2

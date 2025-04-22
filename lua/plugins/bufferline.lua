@@ -2,7 +2,7 @@
 return {
 	"akinsho/bufferline.nvim",
 	version = "*",
-	dependencies = { "nvim-tree/nvim-web-devicons", "rose-pine/neovim" },
+	dependencies = { "nvim-tree/nvim-web-devicons", "projekt0n/github-nvim-theme" },
 	opts = {
 		-- style_preset = bufferline.style_preset.minimal,
 		highlights = {

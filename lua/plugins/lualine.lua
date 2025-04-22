@@ -4,7 +4,7 @@ return {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "rose-pine",
+					theme = "github_dark_dimmed",
 					icons_enabled = true,
 					section_separators = { left = "", right = "" },
 					component_separators = { left = "", right = "" },

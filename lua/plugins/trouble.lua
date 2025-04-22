@@ -75,9 +75,8 @@ return {
 			end,
 		},
 		{
-			"catppuccin",
+			"projekt0n/github-nvim-theme",
 			optional = true,
-			---@type CatppuccinOptions
 			opts = { integrations = { lsp_trouble = true } },
 		},
 	},

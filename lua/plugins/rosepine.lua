@@ -5,8 +5,8 @@ return {
 	config = function()
 		vim.cmd("colorscheme rose-pine")
 		require("rose-pine").setup({
-			variant = "auto", -- auto, main, moon, or dawn
-			dark_variant = "main", -- main, moon, or dawn
+			variant = "moon", -- auto, main, moon, or dawn
+			dark_variant = "moon", -- main, moon, or dawn
 			dim_inactive_windows = false,
 			extend_background_behind_borders = true,
 
@@ -59,8 +59,11 @@ return {
 					base = "#191919",
 				},
 				moon = {
-					base = "#18191a",
-					overlay = "#363738",
+					base = "#1A1A1A",
+					--float = "#1A1A1A",
+					--normal_float = "#1A1A1A",
+					--overlay = "#1A1A1A",
+					--overlay = "#363738",
 				},
 				-- moon = {
 				--     base = '#18191a',
@@ -73,10 +76,10 @@ return {
 			highlight_groups = {
 				-- Comment = { fg = "foam" },
 				-- StatusLine = { fg = "love", bg = "love", blend = 15 },
-				-- VertSplit = { fg = "muted", bg = "muted" },
-				-- Visual = { fg = "base", bg = "text", inherit = false },
+				VertSplit = { fg = "muted", bg = "muted" },
+				--Visual = { fg = "base", bg = "text", inherit = false },
+				--NormalFloat = { bg = "#141414", blend = 10 },
 			},
-
 			before_highlight = function(group, highlight, palette)
 				-- Disable all undercurls
 				-- if highlight.undercurl then
