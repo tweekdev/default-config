@@ -11,7 +11,7 @@ return {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
+		tag = "0.1.8",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -48,7 +48,15 @@ return {
 
 			require("telescope").setup({
 				defaults = {
-					file_ignore_patterns = { ".git/", "node_modules", "dist/", ".next/", ".cache/", "build/" },
+					file_ignore_patterns = {
+						".git/",
+						"node_modules",
+						"dist/",
+						".next/",
+						".cache/",
+						"build/",
+						"coverage",
+					},
 					vimgrep_arguments = vim.tbl_flatten({
 						"rg",
 						"--color=never",
@@ -81,13 +89,11 @@ return {
 						}),
 					},
 					grep_string = {
-						theme = "ivy",
 						additional_args = function()
 							return common_iglob_excludes
 						end,
 					},
 					live_grep = {
-						theme = "ivy",
 						additional_args = function()
 							return common_iglob_excludes
 						end,
@@ -139,4 +145,3 @@ return {
 		end,
 	},
 }
-
