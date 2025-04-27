@@ -1,4 +1,5 @@
 local wk = require("which-key")
+local opts = { noremap = true, silent = true }
 
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
@@ -40,8 +41,19 @@ vim.keymap.set("n", "<leader>dd", "<cmd>lua vim.diagnostic.disable()<cr>")
 -- Neo-tree
 --vim.keymap.set("n", "<C-b>", "<cmd>Neotree filesystem reveal left<CR>", {})
 vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle<CR>")
-
 vim.keymap.set("n", "leaderxx", "<cmd>Trouble diagnostics toggle<CR>")
+
+-- Move window
+vim.keymap.set("n", "sh", "<C-w>h")
+vim.keymap.set("n", "sk", "<C-w>k")
+vim.keymap.set("n", "sj", "<C-w>j")
+vim.keymap.set("n", "sl", "<C-w>l")
+
+-- Resize window
+vim.keymap.set("n", "<C-S-h>", "<C-w><")
+vim.keymap.set("n", "<C-S-l>", "<C-w>>")
+vim.keymap.set("n", "<C-S-k>", "<C-w>+")
+vim.keymap.set("n", "<C-S-j>", "<C-w>-")
 
 -- Which-key labels and keymaps
 wk.add({

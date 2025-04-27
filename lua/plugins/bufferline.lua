@@ -24,10 +24,12 @@ return {
 				},
 			},
 			diagnostics = "nvim_lsp",
+			mode = "tabs",
+
 			separator_style = "thick",
 			modified_icon = "●",
 			show_close_icon = false,
-			show_buffer_close_icons = true,
+			show_buffer_close_icons = false,
 			diagnostics_indicator = function(count, level, diagnostics_dict, context)
 				local icon = level:match("error") and " " or (level:match("warning") and " ") or " "
 				return " " .. icon .. count

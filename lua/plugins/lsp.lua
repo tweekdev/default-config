@@ -116,4 +116,8 @@ return {
 			})
 		end,
 	},
+	{
+		"nvim-cmp",
+		dependencies = { "hrsh7th/cmp-emoji" },
+	},
 }

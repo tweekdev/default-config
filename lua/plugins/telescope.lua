@@ -1,5 +1,10 @@
 return {
 	{
+		"echasnovski/mini.hipatterns",
+		event = "BufReadPre",
+		opts = {},
+	},
+	{
 		"nvim-telescope/telescope-ui-select.nvim",
 	},
 	{
@@ -140,6 +145,23 @@ return {
 			vim.keymap.set("n", "<leader>fB", builtin.git_status, { desc = "Git status" })
 			vim.keymap.set("n", "<leader>fc", builtin.git_commits, { desc = "Git commits" })
 			vim.keymap.set("n", "<leader>fC", builtin.git_bcommits, { desc = "Git buffer commits" })
+
+			local function telescope_buffer_dir()
+				return vim.fn.expand("%:p:h")
+			end
+
+			vim.keymap.set("n", "sf", function()
+				builtin.find_files({
+					path = "%:p:h",
+					cwd = telescope_buffer_dir(),
+					respect_gitignore = false,
+					hidden = true,
+					grouped = true,
+					previewer = false,
+					initial_mode = "normal",
+					layout_config = { height = 40 },
+				})
+			end, { desc = "Find in buffer dir" })
 
 			require("telescope").load_extension("ui-select")
 		end,
