@@ -42,12 +42,14 @@ return {
 			lspconfig.ts_ls.setup({
 				on_attach = function(client, bufnr)
 					client.server_capabilities.documentFormattingProvider = false
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						buffer = bufnr,
-						command = "OrganizeImports",
-					})
+					--vim.api.nvim_create_autocmd("BufWritePre", {
+					--	buffer = bufnr,
+					--	command = "OrganizeImports",
+					--})
 				end,
 				capabilities = capabilities,
+				filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+				cmd = { "typescript-language-server", "--stdio" },
 				flags = lsp_flags,
 				commands = {
 					OrganizeImports = {
@@ -55,6 +57,7 @@ return {
 						description = "Organize Imports",
 					},
 				},
+				single_file_support = false,
 			})
 			lspconfig.solargraph.setup({
 				capabilities = capabilities,

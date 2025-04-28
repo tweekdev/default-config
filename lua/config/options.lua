@@ -2,9 +2,10 @@
 vim.g.lazyvim_prettier_needs_config = false
 
 --vim.o.winborder = "solid"
-
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+if vim.bo.modifiable then
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+    vim.opt.undofile = true
+end
 
 vim.opt.isfname:append("@-@")
 
