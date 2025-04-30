@@ -146,10 +146,6 @@ alias tmkt='tmux kill-session -t'
 alias tmk='tmux kill-session'
 #alias vim to neovim
 alias vim='nvim'
-alias vi='nvim'
-alias v='nvim'
-alias n='nvim'
-alias sn= 'find . -name "*.js" -or -name "*.ts" | entr -r nvim'
 
 # Most used git command should be short.
 alias s='git status -sb'
@@ -240,35 +236,9 @@ alias dbprod=' cd ~/Developer/travauxlib/scripts && ./db_connect.js prod'
 alias dbdev=' cd ~/Developer/travauxlib/scripts && ./db_connect.js develop'
 alias dbrecette=' cd ~/Developer/travauxlib/scripts && ./db_connect.js recette'
 
-alias all='cd ~/Developer/travauxlib && ./start.sh all'
-alias main='cd ~/Developer/travauxlib && ./start.sh main'
-alias admin='cd ~/Developer/travauxlib && ./start.sh admin'
-alias pro='cd ~/Developer/travauxlib && ./start.sh pro'
-alias app='cd ~/Developer/travauxlib && ./start.sh app'
-alias shared='cd ~/Developer/travauxlib && ./start.sh shared'
-
-function sesh-sessions() {
-  {
-    exec </dev/tty
-    exec <&1
-    local session
-    session=$(sesh list -t -c | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
-    zle reset-prompt > /dev/null 2>&1 || true
-    [[ -z "$session" ]] && return
-    sesh connect $session
-  }
-}
-
-zle     -N             sesh-sessions
-bindkey -M emacs '\es' sesh-sessions
-bindkey -M vicmd '\es' sesh-sessions
-bindkey -M viins '\es' sesh-sessions
-
 # alias restart scheduler
 alias restartscheduler=' curl https://api.hemea.com/api/admin-public/schedulers/start-all -H '\x-schedulers-control-key: N1Os6IBXk3QMdb56ByLY'\'
 
-# alias fzf with nvim
-alias vif='nvim $(fzf)'
 
 # fzf
 source <(fzf --zsh)
