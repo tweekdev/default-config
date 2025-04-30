@@ -32,14 +32,14 @@ startup_command = "nvim"
 [[session]]
 name = "hemea-main"
 path = "~/Developer/travauxlib"
-startup_command = "tmux kill-session -t hemea-all && main"
+startup_command = "main"
 
 [[session]]
 name = "hemea-all"
 path = "~/Developer/travauxlib"
-startup_command = "tmux kill-session -t hemea-main && tmux kill-session -t hemea-shared && all"
+startup_command = "all"
 
 [[session]]
 name = "hemea-shared"
 path = "~/Developer/travauxlib"
-startup_command = "tmux kill-session -t hemea-all && shared"
+startup_command = "shared"
