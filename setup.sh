@@ -82,12 +82,17 @@ do_install() {
     echo "✅ Google Cloud SDK est déjà installé."
   fi
 
-  # Vérifie si Raycast est installé
-  if ! command -v raycast &>/dev/null; then
-    echo "🚀 Installation de Raycast..."
-    brew install --cask raycast
+  # Vérifie si la commande raycast -v fonctionne
+  if raycast -v &>/dev/null; then
+    echo "✅ Raycast est déjà installé (vérification par commande)."
   else
-    echo "✅ Raycast est déjà installé."
+    # Si la commande échoue, vérifie si le dossier existe dans /Applications
+    if [ -d "/Applications/Raycast.app" ]; then
+      echo "✅ Raycast est déjà installé (vérification par dossier)."
+    else
+      echo "🚀 Installation de Raycast..."
+      brew install --cask raycast
+    fi
   fi
 
   # Vérifie si Oh My Zsh est installé
