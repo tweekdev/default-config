@@ -55,13 +55,13 @@ return {
 					-- Passing a string sets the base
 					--red = "#ff0000",
 				},
-				github_dark = {
-					-- Defining multiple shades is done by passing a table
-					red = {
-						base = "#8e1519",
-						bright = "#ee0000",
-					},
-				},
+				-- github_dark = {
+				-- 	-- Defining multiple shades is done by passing a table
+				-- 	red = {
+				-- 		base = "#8e1519",
+				-- 		bright = "#ee0000",
+				-- 	},
+				-- },
 				github_dark_dimmed = {
 					-- A palette also defines the following:
 					--   bg0, bg1, bg2, bg3, bg4, fg0, fg1, fg2, fg3, sel0, sel1, comment
@@ -72,29 +72,29 @@ return {
 
 					-- bg0 is the default bg
 					-- sel is different types of selection colors
-					bg1 = "#191919", -- Black background
-					bg0 = "#1d1d2b", -- Alt backgrounds (floats, statusline, ...)
-					bg3 = "#121820", -- 55% darkened from stock
-					sel0 = "#adbac7", -- Popup bg, visual selection bg
-					sel1 = "#22272e", -- Popup sel bg, search bg
-
-					-- comment is the definition of the comment color.
-					comment = "#636e7b",
+					-- bg1 = "#191919", -- Black background
+					-- bg0 = "#1d1d2b", -- Alt backgrounds (floats, statusline, ...)
+					-- bg3 = "#121820", -- 55% darkened from stock
+					-- sel0 = "#adbac7", -- Popup bg, visual selection bg
+					-- sel1 = "#22272e", -- Popup sel bg, search bg
+					--
+					-- -- comment is the definition of the comment color.
+					-- comment = "#636e7b",
 				},
 			},
 			specs = {
-				all = {
-					inactive = "bg0", -- Default value for other styles
-				},
-				github_dark_dimmed = {
-					bg0 = "#1d1d2b",
-					bg1 = "#1A1A1A",
-					inactive = "#090909", -- Slightly lighter then black background
-				},
+				-- all = {
+				-- 	inactive = "bg0", -- Default value for other styles
+				-- },
+				-- github_dark_dimmed = {
+				-- 	bg0 = "#1d1d2b",
+				-- 	bg1 = "#1A1A1A",
+				-- 	inactive = "#090909", -- Slightly lighter then black background
+				-- },
 			},
 			groups = {
 				all = {
-					NormalNC = { fg = "fg1", bg = "inactive" }, -- Non-current windows
+					-- NormalNC = { fg = "fg1", bg = "inactive" }, -- Non-current windows
 				},
 			},
 		})

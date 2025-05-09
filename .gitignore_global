@@ -1,4 +1,6 @@
+full-check-all.sh
 start.sh
+test.sh
 .metals
 .bloop
 project/metals

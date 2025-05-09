@@ -12,8 +12,9 @@ return {
 		local metals_config = require("metals").bare_config()
 
 		metals_config.settings = {
-			autoImportBuild = "initial",
+			autoImportBuild = "disabled",
 			showImplicitArguments = true,
+			disableCompileOnSave = true,
 			excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
 		}
 

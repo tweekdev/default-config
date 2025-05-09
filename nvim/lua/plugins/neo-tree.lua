@@ -7,44 +7,31 @@ return {
 		"MunifTanjim/nui.nvim",
 	},
 	cmd = "Neotree",
-	keys = {
-		{
-			"<leader>fe",
-			function()
-				require("neo-tree.command").execute({ toggle = true })
-			end,
-			desc = "Explorer NeoTree (Root Dir)",
-		},
-		{
-			"<leader>fE",
-			function()
-				require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
-			end,
-			desc = "Explorer NeoTree (cwd)",
-		},
-		{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
-		{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
-		{
-			"<leader>ge",
-			function()
-				require("neo-tree.command").execute({ source = "git_status", toggle = true })
-			end,
-			desc = "Git Explorer",
-		},
-		{
-			"<leader>be",
-			function()
-				require("neo-tree.command").execute({ source = "buffers", toggle = true })
-			end,
-			desc = "Buffer Explorer",
-		},
-	},
-	deactivate = function()
-		vim.cmd([[Neotree close]])
-	end,
+
+	-- Export commands for reuse
 	init = function()
-		-- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
-		-- because `cwd` is not set up properly.
+		-- Make neo-tree commands available globally
+		_G.neotree = _G.neotree or {}
+		_G.neotree.commands = require("neo-tree.command")
+
+		-- Define reusable functions
+		_G.neotree.toggle_root = function()
+			_G.neotree.commands.execute({ toggle = true })
+		end
+
+		_G.neotree.toggle_cwd = function()
+			_G.neotree.commands.execute({ toggle = true, dir = vim.uv.cwd() })
+		end
+
+		_G.neotree.toggle_git = function()
+			_G.neotree.commands.execute({ source = "git_status", toggle = true })
+		end
+
+		_G.neotree.toggle_buffers = function()
+			_G.neotree.commands.execute({ source = "buffers", toggle = true })
+		end
+
+		-- Auto-start if needed
 		vim.api.nvim_create_autocmd("BufEnter", {
 			group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
 			desc = "Start Neo-tree with directory",
@@ -60,6 +47,35 @@ return {
 				end
 			end,
 		})
+		end,
+
+	-- Define keymaps
+	keys = {
+		{
+			"<leader>fe",
+			function() _G.neotree.toggle_root() end,
+			desc = "Explorer NeoTree (Root Dir)",
+		},
+		{
+			"<leader>fE",
+			function() _G.neotree.toggle_cwd() end,
+			desc = "Explorer NeoTree (cwd)",
+		},
+		{ "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
+		{ "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+		{
+			"<leader>ge",
+			function() _G.neotree.toggle_git() end,
+			desc = "Git Explorer",
+		},
+		{
+			"<leader>be",
+			function() _G.neotree.toggle_buffers() end,
+			desc = "Buffer Explorer",
+		},
+	},
+	deactivate = function()
+		vim.cmd([[Neotree close]])
 	end,
 	opts = {
 		sources = { "filesystem", "buffers", "git_status", "document_symbols" },
@@ -134,17 +150,28 @@ return {
 		},
 	},
 	config = function(_, opts)
-		local function on_move(data)
-			Snacks.rename.on_rename_file(data.source, data.destination)
-		end
-
+		-- Configuration des gestionnaires d'événements
 		local events = require("neo-tree.events")
 		opts.event_handlers = opts.event_handlers or {}
+
+		-- Gestion des déplacements/renommages de fichiers
+		local function on_move(data)
+			-- Vérifier si Snacks est disponible pour éviter les erreurs
+			if Snacks and Snacks.rename and Snacks.rename.on_rename_file then
+				Snacks.rename.on_rename_file(data.source, data.destination)
+			end
+		end
+
+		-- Ajouter les gestionnaires d'événements
 		vim.list_extend(opts.event_handlers, {
 			{ event = events.FILE_MOVED, handler = on_move },
 			{ event = events.FILE_RENAMED, handler = on_move },
 		})
+
+		-- Initialiser neo-tree
 		require("neo-tree").setup(opts)
+
+		-- Rafraîchir git_status après l'utilisation de lazygit
 		vim.api.nvim_create_autocmd("TermClose", {
 			pattern = "*lazygit",
 			callback = function()

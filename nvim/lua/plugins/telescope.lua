@@ -85,13 +85,17 @@ return {
 				},
 				pickers = {
 					find_files = {
-						theme = "ivy",
+						layout_config = {
+							vertical = { width = 0.9 },
+							-- other layout configuration here
+						  },
 						hidden = true,
 						find_command = vim.tbl_flatten({
 							"rg",
 							"--files",
 							common_iglob_excludes,
 						}),
+						theme = "dropdown",
 					},
 					grep_string = {
 						additional_args = function()
@@ -118,50 +122,57 @@ return {
 				},
 			})
 
-			local builtin = require("telescope.builtin")
-			local lga = require("telescope").extensions.live_grep_args
+            -- Export functions for use in keymaps.lua
+            _G.telescope = _G.telescope or {}
+            _G.telescope.builtin = require("telescope.builtin")
+            _G.telescope.lga = require("telescope").extensions.live_grep_args
+            
+            -- Define custom telescope functions
+            _G.telescope.find_files_all = function()
+                _G.telescope.builtin.find_files({
+                    no_ignore = true,
+                    hidden = true,
+                    prompt_prefix = "🔍 ",
+                })
+            end
+            
+            _G.telescope.grep_input = function()
+                _G.telescope.builtin.grep_string({ search = vim.fn.input("Grep > ") })
+            end
+            
+            _G.telescope.find_in_nvim_config = function()
+                _G.telescope.builtin.find_files({ cwd = "~/.config/nvim" })
+            end
+            
+            -- Définir uniquement les raccourcis spécifiques à Telescope et pas dans keymaps.lua
+            vim.keymap.set("n", "<leader>fga", _G.telescope.lga.live_grep_args, { desc = "Live grep (args)" })
+            vim.keymap.set("n", "<leader>fG", _G.telescope.grep_input, { desc = "Grep string (manual input)" })
+            vim.keymap.set("n", "<leader><leader>", _G.telescope.builtin.oldfiles, { desc = "Recent files" })
+            vim.keymap.set("n", "<leader>fn", _G.telescope.find_in_nvim_config, { desc = "Find in nvim config" })
+            vim.keymap.set("n", "<leader>fB", _G.telescope.builtin.git_status, { desc = "Git status" })
+            vim.keymap.set("n", "<leader>fc", _G.telescope.builtin.git_commits, { desc = "Git commits" })
+            vim.keymap.set("n", "<leader>fC", _G.telescope.builtin.git_bcommits, { desc = "Git buffer commits" })
 
-			vim.keymap.set("n", "<leader>ff", function()
-				builtin.find_files({
-					no_ignore = true,
-					hidden = true,
-					prompt_prefix = "🔍 ",
-				})
-			end, { desc = "Find files (all)" })
-
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
-			vim.keymap.set("n", "<leader>fga", lga.live_grep_args, { desc = "Live grep (args)" })
-			vim.keymap.set("n", "<leader>fG", function()
-				builtin.grep_string({ search = vim.fn.input("Grep > ") })
-			end, { desc = "Grep string (manual input)" })
-
-			vim.keymap.set("n", "<leader><leader>", builtin.oldfiles, { desc = "Recent files" })
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
-			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
-			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Diagnostics" })
-			vim.keymap.set("n", "<leader>fn", function()
-				builtin.find_files({ cwd = "~/.config/nvim" })
-			end, { desc = "Find in nvim config" })
-			vim.keymap.set("n", "<leader>fB", builtin.git_status, { desc = "Git status" })
-			vim.keymap.set("n", "<leader>fc", builtin.git_commits, { desc = "Git commits" })
-			vim.keymap.set("n", "<leader>fC", builtin.git_bcommits, { desc = "Git buffer commits" })
-
-			local function telescope_buffer_dir()
-				return vim.fn.expand("%:p:h")
-			end
-
-			vim.keymap.set("n", "sf", function()
-				builtin.find_files({
-					path = "%:p:h",
-					cwd = telescope_buffer_dir(),
-					respect_gitignore = false,
-					hidden = true,
-					grouped = true,
-					previewer = false,
-					initial_mode = "normal",
-					layout_config = { height = 40 },
-				})
-			end, { desc = "Find in buffer dir" })
+            -- Fonction pour trouver le dossier courant
+            _G.telescope.buffer_dir = function()
+                return vim.fn.expand("%:p:h")
+            end
+            
+            -- Fonction pour rechercher dans le dossier courant
+            _G.telescope.find_in_buffer_dir = function()
+                _G.telescope.builtin.find_files({
+                    path = "%:p:h",
+                    cwd = _G.telescope.buffer_dir(),
+                    respect_gitignore = false,
+                    hidden = true,
+                    grouped = true,
+                    previewer = false,
+                    initial_mode = "normal",
+                    layout_config = { height = 40 },
+                })
+            end
+            
+            vim.keymap.set("n", "sf", _G.telescope.find_in_buffer_dir, { desc = "Find in buffer dir" })
 
 			require("telescope").load_extension("ui-select")
 		end,

@@ -293,3 +293,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
 
 eval "$(starship init zsh)"
+
+# Added by Windsurf
+export PATH="/Users/tweekdev/.codeium/windsurf/bin:$PATH"
