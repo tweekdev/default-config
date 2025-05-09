@@ -65,7 +65,7 @@ do_install() {
   fi
 
   # Vérifie si les outils de développement sont installés
-  for tool in neovim tmux fzf bat git zsh eza zoxide gh lazygit coursier starship ripgrep git-flow-avh gnu-tar postgresql pigz; do
+  for tool in zen-browser neovim tmux fzf bat git zsh eza zoxide gh lazygit coursier starship ripgrep git-flow-avh gnu-tar postgresql pigz; do
     if ! command -v $tool &>/dev/null; then
       echo "🔨 Installation de $tool..."
       brew install $tool
@@ -80,6 +80,16 @@ do_install() {
     brew install --cask google-cloud-sdk
   else
     echo "✅ Google Cloud SDK est déjà installé."
+  fi
+
+  # Vérifie si google-chrome est installé
+  if ! command -v google-chrome &>/dev/null; then
+    if [ ! -d "/Applications/Google Chrome.app" ]; then
+      echo "🌐 Installation de Google Chrome..."
+      brew install --cask google-chrome
+    fi
+  else
+    echo "✅ Google Chrome est déjà installé."
   fi
 
   # Vérifie si la commande raycast -v fonctionne
