@@ -249,12 +249,13 @@ return {
       vim.keymap.set("n", "<leader>fB", _G.telescope.builtin.git_status, { desc = "Git status" })
       vim.keymap.set("n", "<leader>fc", _G.telescope.builtin.git_commits, { desc = "Git commits" })
       vim.keymap.set("n", "<leader>fC", _G.telescope.builtin.git_bcommits, { desc = "Git buffer commits" })
-      vim.keymap.set("n", "<leader>sf", _G.telescope.find_browser, { desc = "Find in browser" })
+      vim.keymap.set("n", "sf", _G.telescope.find_browser, { desc = "Find in browser" })
 
       -- Fonction pour trouver le dossier courant
       _G.telescope.buffer_dir = function()
         return vim.fn.expand("%:p:h")
       end
+
 
       -- Fonction pour rechercher dans le dossier courant
       _G.telescope.find_in_buffer_dir = function()

@@ -44,6 +44,7 @@ vim.keymap.set("n", "<leader>fh", function() _G.telescope.builtin.help_tags() en
 vim.keymap.set("n", "<leader>fd", function() _G.telescope.builtin.diagnostics() end, { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>fr", function() _G.telescope.builtin.lsp_references() end, { desc = "LSP references" })
 vim.keymap.set("n", "<C-g>", function() _G.telescope.builtin.git_files() end, { desc = "Git files" })
+vim.keymap.set("n", "sf", function() _G.telescope.find_browser() end, { desc = "Find in browser" })
 
 -- Diagnostics - utilise les fonctions globales définies dans diagnostics.lua
 vim.keymap.set("n", "<leader>de", function() _G.diagnostics.enable() end, { desc = "Enable diagnostics" })
