@@ -184,7 +184,7 @@ do_installs() {
   npm install typescript --save-dev
 
   echo "🛠️ Installation des outils de développement..."
-  brew install neovim tmux fzf bat git zsh eza zoxide gh lazygit coursier/formulas/coursier starship ripgrep git-flow-avh gnu-tar postgresql pigz
+  brew install neovim diff-so-fancy tmux fzf bat git zsh eza zoxide gh lazygit coursier/formulas/coursier starship ripgrep git-flow-avh gnu-tar postgresql pigz
   brew install --cask google-cloud-sdk raycast
 
   echo "🔌 Installation des plugins Zsh..."

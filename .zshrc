@@ -127,11 +127,17 @@ function current_repository() {
   echo $(git remote -v | cut -d':' -f 2)
 }
 
-alias fullCheck="yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
-alias fullCheckAdmin="cd ~/Developer/travauxlib/admin && yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
-alias fullCheckPro="cd ~/Developer/travauxlib/pro && yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
-alias fullCheckApp="cd ~/Developer/travauxlib/app && yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
-alias fullCheckShared="cd ~/Developer/travauxlib/shared && yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
+#alias fullCheck="yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
+#alias fullCheckAdmin="cd ~/Developer/travauxlib/admin && yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
+#alias fullCheckPro="cd ~/Developer/travauxlib/pro && yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
+#alias fullCheckApp="cd ~/Developer/travauxlib/app && yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
+#alias fullCheckShared="cd ~/Developer/travauxlib/shared && yarn test:ci --coverage && yarn lint --fix && yarn typecheck"
+
+alias fullCheck="cd ~/Developer/travauxlib && ./full-check-all.sh "
+alias fullCheckAdmin="cd ~/Developer/travauxlib && ./full-check-all.sh admin"
+alias fullCheckPro="cd ~/Developer/travauxlib && ./full-check-all.sh pro"
+alias fullCheckApp="cd ~/Developer/travauxlib && ./full-check-all.sh app"
+alias fullCheckShared="cd ~/Developer/travauxlib && ./full-check-all.sh shared"
 
 alias check="yarn lint --fix && yarn typecheck"
 alias yt="DEBUG_PRINT_LIMIT=50000 yarn test"
@@ -152,6 +158,26 @@ alias n='nvim'
 alias sn= 'find . -name "*.js" -or -name "*.ts" | entr -r nvim'
 
 # Most used git command should be short.
+alias ga='git add'
+alias gap='ga --patch'
+alias gb='git branch'
+alias gba='gb --all'
+alias gc='git commit'
+alias gca='gc --amend --no-edit'
+alias gce='gc --amend'
+alias gco='git checkout'
+alias gcl='git clone --recursive'
+alias gd='git diff --output-indicator-new=" " --output-indicator-old=" "'
+alias gds='gd --staged'
+alias gi='git init'
+alias gl='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(blue)  %D%n%s%n"'
+alias gm='git merge'
+alias gn='git checkout -b'  # new branch
+alias gp='git push'
+alias gr='git reset'
+alias gs='git status --short'
+alias gu='git pull'
+
 alias s='git status -sb'
 alias ga='git add -A'
 alias gap='ga -p'
