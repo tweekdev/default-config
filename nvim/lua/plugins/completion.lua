@@ -74,10 +74,31 @@ return {
 			local luasnip = require("luasnip")
 			local lspkind = require("lspkind")
 			
-			-- Définir des couleurs plus attrayantes pour le menu de complétion
-			vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#82AAFF", bold = true })
-			vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#82AAFF", bold = true })
-			vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#C792EA", italic = true })
+			-- Style plus prononcé pour le menu de complétion avec sélection visible
+			-- Définition des highlight groups avec des couleurs très contrastées
+			vim.cmd([[highlight! CmpItemAbbrMatch guifg=#82AAFF gui=bold]])
+			vim.cmd([[highlight! CmpItemAbbrMatchFuzzy guifg=#82AAFF gui=bold]])
+			vim.cmd([[highlight! CmpItemMenu guifg=#C792EA gui=italic]])
+			vim.cmd([[highlight! CmpSel guibg=#264F78 guifg=white gui=bold]])
+			vim.cmd([[highlight! CmpPmenu guibg=#282c34]])
+			vim.cmd([[highlight! PmenuSel guibg=#264F78 guifg=white]])
+			vim.cmd([[highlight! PmenuSbar guibg=#3b4048]])
+			vim.cmd([[highlight! PmenuThumb guibg=#00ff00]])  -- Barre de défilement très visible
+			
+			-- Highlights spécifiques pour les types d'items
+			vim.cmd([[highlight! CmpItemAbbrDefault guifg=#ABB2BF]])
+			vim.cmd([[highlight! CmpItemAbbrDeprecated gui=strikethrough guifg=#ABB2BF]])
+			vim.cmd([[highlight! CmpItemAbbrMatch guifg=#61AFEF]])
+			vim.cmd([[highlight! CmpItemAbbrMatchFuzzy guifg=#61AFEF]])
+			vim.cmd([[highlight! CmpItemKindDefault guifg=#C678DD]])
+			vim.cmd([[highlight! CmpItemKindVariable guifg=#E06C75]])
+			vim.cmd([[highlight! CmpItemKindFunction guifg=#61AFEF]])
+			vim.cmd([[highlight! CmpItemKindMethod guifg=#61AFEF]])
+			vim.cmd([[highlight! CmpItemKindClass guifg=#E5C07B]])
+			vim.cmd([[highlight! CmpItemKindInterface guifg=#E5C07B]])
+			
+			-- Assurer que les sélections sont toujours visibles
+			vim.cmd([[highlight! link CmpItemSelectedDefault PmenuSel]])
 			
 			-- Ajouter la complétion pour les commandes Vim
 			cmp.setup.cmdline(":", {
@@ -99,9 +120,10 @@ return {
 				window = {
 					completion = {
 						border = "rounded",
-						winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
+						winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
 						scrollbar = true,
 						side_padding = 1,
+						scrolloff = 5,
 					},
 					documentation = {
 						border = "rounded",
@@ -117,6 +139,7 @@ return {
 						mode = "symbol_text",
 						maxwidth = 50,
 						ellipsis_char = "...",
+						select = true,
 						show_labelDetails = true,
 						before = function(entry, vim_item)
 							-- Afficher la source de complétion
@@ -141,6 +164,11 @@ return {
 				},
 				experimental = {
 					ghost_text = true, -- Texte fantôme pour montrer le résultat
+				},
+				-- Forcer l'affichage de la sélection avec apparence améliorée
+				completion = {
+					completeopt = "menu,menuone,noinsert,noselect",
+					keyword_length = 1,
 				},
 				
 				-- Raccourcis clavier optimisés

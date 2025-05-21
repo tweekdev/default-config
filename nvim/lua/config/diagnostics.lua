@@ -1,30 +1,40 @@
 -- Configuration globale des diagnostics pour Neovim
 -- Ce fichier centralise toutes les configurations de diagnostic
 
--- Configuration des icônes et symboles de diagnostic
+-- Configuration des icônes et symboles de diagnostic (méthode moderne)
 local diagnostic_signs = {
-  { name = "DiagnosticSignError", text = "✘", texthl = "DiagnosticSignError" },
-  { name = "DiagnosticSignWarn", text = "▲", texthl = "DiagnosticSignWarn" },
-  { name = "DiagnosticSignHint", text = "⚑", texthl = "DiagnosticSignHint" },
-  { name = "DiagnosticSignInfo", text = "»", texthl = "DiagnosticSignInfo" },
+  Error = "✘",
+  Warn = "▲",
+  Hint = "⚑",
+  Info = "»",
 }
 
--- Définir les signes de diagnostic
-for _, sign in ipairs(diagnostic_signs) do
-  vim.fn.sign_define(sign.name, {
-    text = sign.text,
-    texthl = sign.texthl,
-    numhl = sign.texthl,
-  })
-end
-
--- Configuration principale des diagnostics
+-- Configuration principale des diagnostics (méthode moderne)
 local diagnostic_config = {
-  signs = true,
-  virtual_text = false, -- Désactivé car nous utilisons diagflow
+  -- Configuration des signes dans la colonne des signes
+  signs = {
+    active = true,
+    values = {
+      { name = "DiagnosticSignError", text = diagnostic_signs.Error },
+      { name = "DiagnosticSignWarn", text = diagnostic_signs.Warn },
+      { name = "DiagnosticSignHint", text = diagnostic_signs.Hint },
+      { name = "DiagnosticSignInfo", text = diagnostic_signs.Info },
+    },
+  },
+  
+  -- Désactiver le texte virtuel car on utilise diagflow
+  virtual_text = false,
+  
+  -- Souligner les erreurs
   underline = true,
+  
+  -- Ne pas mettre à jour pendant l'insertion
   update_in_insert = false,
+  
+  -- Trier par sévérité
   severity_sort = true,
+  
+  -- Configuration de la fenêtre flottante de diagnostic
   float = {
     focusable = true,
     border = "rounded",

@@ -76,6 +76,8 @@ return {
 				"tailwindcss",
 				"astro",
 				"emmet_ls",
+				"intelephense",
+				"eslint",
 				"cssls",
 			}
 
