@@ -187,6 +187,16 @@ do_installs() {
   brew install neovim diff-so-fancy tmux fzf bat git zsh eza zoxide gh lazygit coursier/formulas/coursier starship ripgrep git-flow-avh gnu-tar postgresql pigz
   brew install --cask google-cloud-sdk raycast
 
+  # # installation de skhd et yabai et sketchybar
+  # echo "🌀 Installation de skhd, yabai et sketchybar..."
+  # brew install --cask sf-symbols
+  # brew tap koekeishiya/formulae
+  # curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.23/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+  # brew install jq 
+  #brew install koekeishiya/formulae/yabai
+  #brew install koekeishiya/formulae/skhd
+  # brew install koekeishiya/formulae/skhd koekeishiya/formulae/yabai sketchybar
+
   echo "🔌 Installation des plugins Zsh..."
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -226,7 +236,7 @@ do_links() {
   echo "🧼 Suppression des anciens dossiers de configuration..."
 
   # Dossiers à remplacer
-  for DIR in nvim kitty sesh; do
+  for DIR in nvim kitty sesh ; do
     TARGET="$CONFIG_DIR/$DIR"
     if [ -e "$TARGET" ] || [ -L "$TARGET" ]; then
       echo "❌ Suppression de $TARGET"
@@ -262,3 +272,9 @@ case $MODE in
   *) echo "Usage: $0 {install|links|all}"; exit 1 ;;
 esac
 
+echo "🎉 Script terminé avec succès."
+
+#echo "🔄 Redémarrage de sketchybar..."
+#brew services start sketchybar
+#yabai --start-service
+#skhd --start-service

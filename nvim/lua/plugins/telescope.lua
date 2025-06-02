@@ -70,6 +70,13 @@ return {
             ".cache/",
             "build/",
             "coverage",
+            "libraries",
+            "modules",
+            ".metals/.reports",
+            "yarn-error.log",
+            "*.semanticdb",
+            "*.xml",
+            "*.iml",
           },
           vimgrep_arguments = vim.tbl_flatten({
             "rg",
@@ -163,6 +170,12 @@ return {
         },
         extensions = {
           ["ui-select"] = require("telescope.themes").get_dropdown({}),
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+          },
           file_browser = {
             theme = "dropdown",
             -- disables netrw and use telescope-file-browser in its place
@@ -255,7 +268,6 @@ return {
       _G.telescope.buffer_dir = function()
         return vim.fn.expand("%:p:h")
       end
-
 
       -- Fonction pour rechercher dans le dossier courant
       _G.telescope.find_in_buffer_dir = function()
