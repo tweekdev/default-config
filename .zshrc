@@ -247,6 +247,12 @@ alias gstsp='git stash pop'
 
 alias gfs='git feature-start '
 
+git_squash() {
+  git reset $(git merge-base develop $(git branch --show-current))
+  git add -A
+  git commit -m "$1"
+}
+
 # alias for sbt
 alias sbt="sbt -v -mem 2048"
 
